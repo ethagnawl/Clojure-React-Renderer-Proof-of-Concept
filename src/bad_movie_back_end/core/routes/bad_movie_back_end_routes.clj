@@ -10,20 +10,17 @@
     [compojure.core :refer :all]
     [bad-movie-back-end.core.views.bad-movie-back-end-layout :refer [common-layout]]))
 
-(def nashorn (.getEngineByName (ScriptEngineManager.) "nashorn"))
+(defn create-engine
+  "Creates a new nashorn script engine and loads a bunch of scripts into it."
+  [scripts]
+  (let [nashorn (.getEngineByName (ScriptEngineManager.) "nashorn")]
+    ;; Browser module shims expects either 'window' or 'global' to be around.
+    (.eval nashorn "var global = this")
+    ;; 'scripts' is a list of strings or readables, load them all into nashorn.
+    (doseq [script scripts] (.eval nashorn script))
+    nashorn))
 
-;TODO: feed in react, firebase and BMP libraries
-; (defn create-engine
-;   "Creates a new nashorn script engine and loads a bunch of scripts into it."
-;   [scripts]
-;   (let [nashorn (.getEngineByName (ScriptEngineManager.) "nashorn")]
-;     ;; Browser module shims expects either 'window' or 'global' to be around.
-;     (.eval nashorn "var global = this")
-;     ;; 'scripts' is a list of strings or readables, load them all into nashorn.
-;     (doseq [script scripts] (.eval nashorn script))
-;     nashorn))
-
-(defn fetch-url[address]
+(defn fetch-url [address]
   (with-open [stream (.openStream (java.net.URL. address))]
     (let  [buf (java.io.BufferedReader. (java.io.InputStreamReader. stream))]
       (apply str (line-seq buf)))))
@@ -33,6 +30,8 @@
 
 (def firebase
   (fetch-url "https://cdn.firebase.com/js/client/2.0.4/firebase.js"))
+
+(def nashorn (create-engine [react firebase]))
 
 ; TODO
 (defn post-route [request])
