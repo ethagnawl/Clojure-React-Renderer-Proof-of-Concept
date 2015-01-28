@@ -9,4 +9,4 @@
   (fact "Test GET request to / route returns expected string"
     (let [response (app (mock/request :get "/"))]
       (:status response) => 200
-      (:body response) => (contains "HELLO FROM NASHORN"))))
+      (:body response) => (contains #"Hello, .+"))))
