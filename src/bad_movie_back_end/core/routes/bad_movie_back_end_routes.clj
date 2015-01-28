@@ -11,41 +11,31 @@
     [bad-movie-back-end.core.views.bad-movie-back-end-layout :refer [common-layout]]))
 
 (defn create-engine
-  "Creates a new nashorn script engine and loads a bunch of scripts into it."
+  "Creates a new nashorn script engine and loads dependencies into its context."
   [scripts]
   (let [nashorn (.getEngineByName (ScriptEngineManager.) "nashorn")]
-    ;; Browser module shims expects either 'window' or 'global' to be around.
     (.eval nashorn "var global = this")
-    ;; 'scripts' is a list of strings or readables, load them all into nashorn.
-    (doseq [script scripts] (.eval nashorn script))
+    (doseq [script scripts] (.eval nashorn (str "load('" script "');")))
     nashorn))
 
-(defn fetch-url [address]
-  (with-open [stream (.openStream (java.net.URL. address))]
-    (let  [buf (java.io.BufferedReader. (java.io.InputStreamReader. stream))]
-      (apply str (line-seq buf)))))
+(def react "http://cdnjs.cloudflare.com/ajax/libs/react/0.12.2/react.min.js")
 
-(def react
-  (fetch-url "http://cdnjs.cloudflare.com/ajax/libs/react/0.12.2/react.min.js"))
+(def firebase "https://cdn.firebase.com/js/client/2.0.4/firebase.js")
 
-(def firebase
-  (fetch-url "https://cdn.firebase.com/js/client/2.0.4/firebase.js"))
+(def app "/Users/pdoherty/projects/bad-movie-poll-back-end/resources/public/javascripts/app.js")
 
-(def nashorn (create-engine [react firebase]))
+(def nashorn (create-engine [react firebase app]))
 
 ; TODO
 (defn post-route [request])
 
-(defn react-render [component]
-  (.eval nashorn "var global = this")
-  (.eval nashorn react)
-  (.eval nashorn (str "React.renderComponentToString(" component ")")))
-
 ; TODO
 (defn firebase-query [])
 
-(def dummy-component
-  "React.createClass({render: function () {return React.DOM.h1(null, 'HELLO FROM NASHORN')}})()")
+(def dummy-component "MyApp.create({name: 'Pete'})")
+
+(defn react-render [component]
+  (.eval nashorn (str "React.renderComponentToString(" component ")")))
 
 (defn get-route [request]
   (common-layout (react-render dummy-component)))
