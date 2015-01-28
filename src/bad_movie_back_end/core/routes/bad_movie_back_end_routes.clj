@@ -6,6 +6,7 @@
             ])
 
   (:require
+    [clojure.data.json :as json]
     [ring.util.response :as response]
     [compojure.core :refer :all]
     [bad-movie-back-end.core.views.bad-movie-back-end-layout :refer [common-layout]]))
@@ -32,13 +33,16 @@
 ; TODO
 (defn firebase-query [])
 
-(def dummy-component "MyApp.create({name: 'Pete'})")
+(def dummy-data {:name "Pete"})
+
+(defn dummy-component [data]
+  (str "MyApp.create(" (json/write-str data) ")"))
 
 (defn react-render [component]
   (.eval nashorn (str "React.renderComponentToString(" component ")")))
 
 (defn get-route [request]
-  (common-layout (react-render dummy-component)))
+  (common-layout (react-render (dummy-component dummy-data))))
 
 (defroutes bad-movie-back-end-routes
            (GET  "/" [] get-route)

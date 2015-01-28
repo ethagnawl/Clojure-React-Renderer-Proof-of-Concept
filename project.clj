@@ -6,14 +6,18 @@
   :ring {:handler bad-movie-back-end.core.handler/app
          :init    bad-movie-back-end.core.handler/init}
 
-  :dependencies   [[org.clojure/clojure   "1.6.0"]
+  :dependencies [
+                   [org.clojure/clojure   "1.6.0"]
                    [compojure             "1.3.1"]
+                   [org.clojure/data.json "0.2.5"]
                    [ring/ring-defaults    "0.1.3"]
                    [hiccup                "1.0.5"]
-                   [org.clojure/java.jdbc "0.3.6"]
-                   [postgresql/postgresql "9.3-1102.jdbc41"]
-                   [yesql                 "0.5.0-rc1"]
-                   [environ               "1.0.0"]]
+                   [environ               "1.0.0"]
+
+                   ; TODO
+                   ; firebase interface - https://github.com/verma/pani
+                   [pani                  "0.0.3"]
+                ]
 
   :plugins        [[lein-ring             "0.9.1"]
                    [lein-environ          "1.0.0"]]
