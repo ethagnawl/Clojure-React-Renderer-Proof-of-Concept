@@ -2,8 +2,7 @@
 
   (:import [
             javax.script
-            ScriptEngineManager
-            ])
+            ScriptEngineManager])
 
   (:require
     [clojure.data.json :as json]
@@ -22,7 +21,10 @@
 
 (def react "http://cdnjs.cloudflare.com/ajax/libs/react/0.12.2/react.min.js")
 
-(def app "/Users/pdoherty/projects/bad-movie-poll-back-end/resources/public/javascripts/app.js")
+(defn local-script [path]
+  (clojure.java.io/resource (str "public/javascripts/" path)))
+
+(def app (local-script "app.js"))
 
 (def nashorn (create-engine [react app]))
 
