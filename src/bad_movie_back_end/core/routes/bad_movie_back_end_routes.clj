@@ -14,24 +14,17 @@
 (defn create-engine
   "Creates a new nashorn script engine and loads dependencies into its context."
   [scripts]
-  (let [nashorn (.getEngineByName (ScriptEngineManager.) "nashorn")]
-    (.eval nashorn "var global = this")
-    (doseq [script scripts] (.eval nashorn (str "load('" script "');")))
+  (let [nashorn (.getEngineByName (ScriptEngineManager.) "nashorn")
+        loads (map #(str "load('" % "');") scripts)]
+    (.eval nashorn "var global = this;")
+    (doseq [load loads] (.eval nashorn load))
     nashorn))
 
 (def react "http://cdnjs.cloudflare.com/ajax/libs/react/0.12.2/react.min.js")
 
-(def firebase "https://cdn.firebase.com/js/client/2.0.4/firebase.js")
-
 (def app "/Users/pdoherty/projects/bad-movie-poll-back-end/resources/public/javascripts/app.js")
 
-(def nashorn (create-engine [react firebase app]))
-
-; TODO
-(defn post-route [request])
-
-; TODO
-(defn firebase-query [])
+(def nashorn (create-engine [react app]))
 
 (def dummy-data {:name "Pete"})
 
@@ -45,7 +38,6 @@
   (common-layout (react-render (dummy-component dummy-data))))
 
 (defroutes bad-movie-back-end-routes
-           (GET  "/" [] get-route)
-           (POST "/" [] post-route))
+           (GET  "/" [] get-route))
 
 
