@@ -13,11 +13,11 @@
 
 (defn create-engine
   "Creates a new nashorn script engine and loads dependencies into its context."
-  [scripts]
+  [dependencies]
   (let [nashorn (.getEngineByName (ScriptEngineManager.) "nashorn")
-        loads (map #(str "load('" % "');") scripts)]
+        scripts (map #(str "load('" % "');") dependencies)]
     (.eval nashorn "var global = this;")
-    (doseq [load loads] (.eval nashorn load))
+    (doseq [script scripts] (.eval nashorn script))
     nashorn))
 
 (def react "http://cdnjs.cloudflare.com/ajax/libs/react/0.12.2/react.min.js")
