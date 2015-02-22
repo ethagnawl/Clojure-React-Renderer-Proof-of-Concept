@@ -3,6 +3,9 @@
   :url "http://example.com/FIXME"
   :min-lein-version "2.5.0"
 
+  ; need >= Java 8 in order to use Nashorn
+  :javac-options     ["-target" "1.8" "-source" "1.8"]
+
   :ring {:handler bad-movie-back-end.core.handler/app
          :init    bad-movie-back-end.core.handler/init}
 
