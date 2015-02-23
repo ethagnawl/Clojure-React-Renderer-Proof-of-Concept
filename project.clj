@@ -1,4 +1,4 @@
-(defproject bad-movie-back-end "0.1.0-SNAPSHOT"
+(defproject clojure-react-renderer-proof-of-concept "0.1.0-SNAPSHOT"
   :description "FIXME: write description"
   :url "http://example.com/FIXME"
   :min-lein-version "2.5.0"
@@ -6,8 +6,8 @@
   ; need >= Java 8 in order to use Nashorn
   :javac-options     ["-target" "1.8" "-source" "1.8"]
 
-  :ring {:handler bad-movie-back-end.core.handler/app
-         :init    bad-movie-back-end.core.handler/init}
+  :ring {:handler clojure-react-renderer-proof-of-concept.core.handler/app
+         :init    clojure-react-renderer-proof-of-concept.core.handler/init}
 
   :dependencies [
                    [org.clojure/clojure   "1.6.0"]

@@ -1,11 +1,10 @@
-(ns bad-movie-back-end.core.bad-movie-back-end-tests
+(ns clojure-react-renderer-proof-of-concept.core.clojure-react-renderer-proof-of-concept-tests
   (:use midje.sweet)
   (:require [clojure.test :refer :all]
             [ring.mock.request :as mock]
-            [bad-movie-back-end.core.handler :refer :all]
-            ))
+            [clojure-react-renderer-proof-of-concept.core.handler :refer :all]))
 
-(facts "Bad Movie Poll Tests"
+(facts "Clojure React Renderer Proof of Concept Tests"
   (fact "Test GET request to / route returns expected string"
     (let [response (app (mock/request :get "/"))]
       (:status response) => 200

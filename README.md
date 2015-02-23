@@ -1,4 +1,4 @@
-# Bad Movie Back-End
+# Clojure React Renderer Proof of Concept
 
 ## Prerequisites
 

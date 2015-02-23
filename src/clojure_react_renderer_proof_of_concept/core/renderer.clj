@@ -1,4 +1,4 @@
-(ns bad-movie-back-end.core.renderer
+(ns clojure-react-renderer-proof-of-concept.core.renderer
 
   (:import [
             javax.script
@@ -6,7 +6,7 @@
 
   (:require
     [clojure.data.json :as json]
-    [bad-movie-back-end.core.views.bad-movie-back-end-layout :refer [common-layout]]))
+    [clojure-react-renderer-proof-of-concept.core.views.clojure-react-renderer-proof-of-concept-layout :refer [common-layout]]))
 
 (defn- local-script [path]
   (clojure.java.io/resource (str "public/javascripts/" path)))
