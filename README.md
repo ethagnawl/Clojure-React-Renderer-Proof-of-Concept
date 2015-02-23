@@ -22,7 +22,7 @@ conversation.](https://en.wikipedia.org/wiki/Isomorphism))
 
 ## Where are the interesting bits?
 
-You'll want to have a look at [renderer.clj](https://github.com/ethagnawl/Clojure-React-Renderer-Proof-of-Concept/blob/master/src/bad_movie_back_end/core/renderer.clj).
+You'll want to have a look at [renderer.clj](https://github.com/ethagnawl/Clojure-React-Renderer-Proof-of-Concept/blob/master/src/clojure_react_renderer_proof_of_concept/core/renderer.clj).
 
 ## Prerequisites
 
