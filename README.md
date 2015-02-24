@@ -16,8 +16,8 @@ up a nice API.  (e.g. `(react-render (sample-react-component data))`)
 
 I'm anxiously awaiting the opportunity to use this stack in a non-trivial
 application. I would recommend others give Clojure/Nashorn some thought before
-defaulting to (node|io).js for their next "full-stack JavaScript application."
-([Sorry, but I'm not bringing category theory into this
+defaulting to (node|io).js for their next SPA that requires server-side
+rendering ([Sorry, but I'm not bringing category theory into this
 conversation.](https://en.wikipedia.org/wiki/Isomorphism))
 
 ## Where are the interesting bits?
